@@ -3,10 +3,16 @@ import React from 'react'
 const randomWords = require('random-words')
 
 
-export default class GameModel extends React.Component {
-    constructor (props) {
-        super(props);
+export default class GameViewModel {
+    static create () {
+      return new GameViewModel()
+    }
 
+    constructor () {
+        this.intializeState()
+    }
+
+    intializeState() {
         this.state = {
               startGame: false,
               targetWord: '',
@@ -16,17 +22,21 @@ export default class GameModel extends React.Component {
               feedback: "Guess a letter to begin the game!",
               showInput: true,
               showInfo: false
-
-        }
-    this.startNewGame = this.startNewGame.bind(this)
-    this.guess = this.guess.bind(this)
-    this.duplicateGuess = this.duplicateGuess.bind(this)
-    this.wrongGuess = this.wrongGuess.bind(this)
+         }
     }
+
+    setState(obj) {
+      // this.state = Object.assign({}, this.state, obj)
+      this.state = {
+        ...this.state,
+        ...obj
+      };
+    }
+
     startNewGame() {
-      const targetWord = randomWords()
-      const wordDisplay = targetWord.split('').map(letter => '_')
-      this.setState({ startGame: true,
+        const targetWord = randomWords()
+        const wordDisplay = targetWord.split('').map(letter => '_')
+        this.setState({ startGame: true,
                       targetWord,
                       wordDisplay
                       priorGuesses: [],
@@ -98,11 +108,5 @@ export default class GameModel extends React.Component {
       setState({
         showInfo: false
       })
-    }
-    
-    render() {
-      return (
-
-      )
     }
 }
