@@ -9,7 +9,7 @@ export default class GameButton extends React.Component {
       this.props.handleClick()
     }
     render() {
-      <button type="submit"> onClick={this.handleClick} value/>
+      return <button type="submit" onClick={this.handleClick} value={this.props.value}>{this.props.value}</button>
     }
 
 }

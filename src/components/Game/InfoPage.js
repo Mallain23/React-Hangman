@@ -3,11 +3,12 @@ import React from 'react';
 
 export default class InfoPage extends React.Component {
     constructor(props) {
-      super(props) {
-        this.onClose = this.onClose.bind(this)
-      }
+      super(props)
+
+      this.onClose = this.onClose.bind(this)
+
     }
-    onClose() {
+    onClose(e) {
         e.preventDefault();
             this.props.gameViewModel.onClose();
       }
@@ -30,3 +31,6 @@ export default class InfoPage extends React.Component {
                                   </div>
                               </div>
                           </div>
+        )
+    }
+}

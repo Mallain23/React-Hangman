@@ -12,8 +12,8 @@ export default class GuessForm extends React.Component {
   }
   render() {
       return (
-        <form onSumbit={this.onGuess} />
-            <label htmlFor="user guess">Enter your guess </label
+        <form onSumbit={this.onGuess}>
+            <label htmlFor="user guess">Enter your guess </label>
             <input type="text" ref={input => this.input = input}
                 maxLength="1" id="user-guess" required />
             <input type="submit" id="guessButton"

@@ -4,7 +4,7 @@ const randomWords = require('random-words')
 
 
 export default class GameViewModel {
-    static create () {
+    static create() {
       return new GameViewModel()
     }
 
@@ -16,7 +16,7 @@ export default class GameViewModel {
         this.state = {
               startGame: false,
               targetWord: '',
-              wordDisplay: ''
+              wordDisplay: '',
               priorGuesses: [],
               remainingLives: 7,
               feedback: "Guess a letter to begin the game!",
@@ -30,20 +30,22 @@ export default class GameViewModel {
       this.state = {
         ...this.state,
         ...obj
-      };
-    }
+      }
+    };
 
     startNewGame() {
         const targetWord = randomWords()
         const wordDisplay = targetWord.split('').map(letter => '_')
+        console.log(this.setState)
         this.setState({ startGame: true,
                       targetWord,
-                      wordDisplay
+                      wordDisplay,
                       priorGuesses: [],
                       remainingLives: 7,
                       feedback: 'Guess a letter to begin the game!',
                       showInput: true
                     })
+          console.log(this.state)
     }
 
     makeGuess(guess) {
@@ -71,8 +73,8 @@ export default class GameViewModel {
             }
         })
 
-        this.setState({ wordDisplay: newWordDisplay
-                        priorGuesses: [...this.state.priorGuesses, guess]
+        this.setState({ wordDisplay: newWordDisplay,
+                        priorGuesses: [...this.state.priorGuesses, guess],
                         feedback: `Correct guess!)`
                       })
     }
@@ -82,10 +84,11 @@ export default class GameViewModel {
     }
 
     wrongGuess(guess) {
+      let remainingLives = this.state.remainLives--
       this.state.remainingLives = 1 ? this.gameOver() :
 
       this.setState({
-        remainingLives--
+        remainingLives,
         feedback: `Sorry there are no ${guess}'s, try again!`
       })
     }
@@ -93,7 +96,7 @@ export default class GameViewModel {
     gameOver() {
       this.setState({
         feedback: "Sorry, you have no more guesses left! The Game is over",
-        wordDisplay: targetWord
+        wordDisplay: this.state.targetWord,
         showInput: false
       })
     }
@@ -105,7 +108,7 @@ export default class GameViewModel {
     }
 
     onClose() {
-      setState({
+      this.setState({
         showInfo: false
       })
     }
